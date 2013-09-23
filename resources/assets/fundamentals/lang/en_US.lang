@@ -1,0 +1,8 @@
+language.name=English
+language.region=US
+language.code=en_US
+
+itemGroup.fundamentals=Finest Fundamentals
+
+#Items
+item.fundamentals:vial.name=Vial

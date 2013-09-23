@@ -1,0 +1,20 @@
+[
+{
+  "modid": "fundamentals",
+  "name": "Finest Fundamentals",
+  "description": "Explore the fundamentals of Minecraft: Chemistry, Physics, everything!",
+  "version": "0.0.1",
+  "url": "",
+  "updateUrl": "",
+  "authorList": [
+    "BinaryTENSHi"
+  ],
+  "credits": "BinaryTENSHi, TedMANNERs, dachziegel5",
+  "logoFile": "/assets/fundamentals/textures/logo.png",
+  "screenshots": [
+  ],
+  "parent":"",
+  "dependencies": [
+  ]
+}
+]
