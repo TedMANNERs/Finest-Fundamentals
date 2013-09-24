@@ -23,7 +23,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 
-@Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION)
+@Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION, dependencies = "required-after:IC2")
 @NetworkMod(channels = Reference.CHANNEL_NAME, clientSideRequired = true, serverSideRequired = false, packetHandler = PacketHandler.class)
 public class Fundamentals {
 
@@ -31,9 +31,9 @@ public class Fundamentals {
     public static Fundamentals instance;
 
     public static Logger logger = Logger.getLogger(Reference.MOD_NAME);
-    
+
     public static CreativeTabs creativeTab = new CreativeTabs(Reference.MOD_ID);
-    
+
     @SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.SERVER_PROXY_CLASS)
     public static CommonProxy proxy;
 
@@ -42,7 +42,7 @@ public class Fundamentals {
         ConfigHandler.init(event.getSuggestedConfigurationFile());
 
         logger.setParent(FMLLog.getLogger());
-        
+
         ModItems.init();
         ModBlocks.init();
 

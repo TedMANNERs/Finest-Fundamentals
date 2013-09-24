@@ -4,9 +4,11 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.binarytenshi.fundamentals.lib.ItemInfo;
+
 public enum Molecule {
-    NOTHING(0, "Nothing", null),
-    WATER(1, "Water", new SimpleEntry(Element.H, 2), new SimpleEntry(Element.O, 1));
+    NOTHING("Nothing", null),
+    WATER("Water", new SimpleEntry(Element.H, 2), new SimpleEntry(Element.O, 1));
 
     public static Molecule[] values = values();
 
@@ -14,14 +16,14 @@ public enum Molecule {
     private String name;
     private HashMap<Element, Integer> elements = new HashMap<Element, Integer>();
 
-    // TODO: find an easier way to construct molecules
-    Molecule(int meta, String name, SimpleEntry<Element, Integer>... elements) {
+    // TODO: find an easier way to construct molecules (maybe)
+    Molecule(String name, SimpleEntry<Element, Integer>... elements) {
         this.name = name;
-        this.meta = meta;
+        this.meta = ItemInfo.MOLECULE_NEXT_META++;
 
-        if(elements == null)
+        if (elements == null)
             return;
-        
+
         for (SimpleEntry<Element, Integer> entry : elements) {
             this.elements.put(entry.getKey(), entry.getValue());
         }

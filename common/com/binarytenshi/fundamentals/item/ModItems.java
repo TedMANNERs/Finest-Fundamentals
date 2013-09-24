@@ -7,7 +7,7 @@ import net.minecraft.item.Item;
 
 public class ModItems {
     
-    public static Item vial;
+    public static ItemVial vial;
     
     public static void init() {
         vial = new ItemVial(ItemInfo.VIAL_ID);

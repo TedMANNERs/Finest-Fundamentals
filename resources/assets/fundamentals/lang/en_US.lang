@@ -6,3 +6,6 @@ itemGroup.fundamentals=Finest Fundamentals
 
 #Items
 item.fundamentals:vial.name=Vial
+
+#Blocks
+tile.fundamentals:decomposer.name=Decomposer

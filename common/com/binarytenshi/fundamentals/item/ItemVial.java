@@ -2,11 +2,11 @@ package com.binarytenshi.fundamentals.item;
 
 import java.util.List;
 
-import javax.sql.PooledConnection;
-
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Icon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
@@ -14,7 +14,16 @@ import com.binarytenshi.fundamentals.core.Molecule;
 import com.binarytenshi.fundamentals.lib.ItemInfo;
 import com.binarytenshi.fundamentals.lib.Strings;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class ItemVial extends FundamentalsItem {
+
+    @SideOnly(Side.CLIENT)
+    public Icon contentIcon;
+    
+    @SideOnly(Side.CLIENT)
+    public Icon itemIcon;
 
     public ItemVial(int id) {
         super(id);
@@ -38,19 +47,24 @@ public class ItemVial extends FundamentalsItem {
         if (position == null)
             return itemStack;
 
-        Molecule water = Molecule.WATER;
-        
         int blockId = world.getBlockId(position.blockX, position.blockY, position.blockZ);
 
         switch (blockId) {
-        // Water
-            case 8:
+            case 8: /* Water */
             case 9:
+                // TODO: differentiate between Molecules and Elements
                 setDamage(itemStack, Molecule.WATER.getMeta());
                 break;
         }
 
         return itemStack;
+    }
+
+    @Override
+    public void registerIcons(IconRegister register) {
+        super.registerIcons(register);
+        this.itemIcon = super.itemIcon;
+        contentIcon = register.registerIcon(ItemInfo.VILE_CONTENT_TEX);
     }
 
     @Override
