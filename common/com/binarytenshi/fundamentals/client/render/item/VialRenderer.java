@@ -48,23 +48,20 @@ public class VialRenderer implements IItemRenderer {
             case EQUIPPED:
             case EQUIPPED_FIRST_PERSON:
                 setColorForMolecule(molecule);
-                ItemRenderer.renderItemIn2D(tessellator, ModItems.vial.contentIcon.getMaxU(), ModItems.vial.contentIcon.getMinV(), ModItems.vial.contentIcon.getMinU(), ModItems.vial.contentIcon.getMaxV(), ((TextureAtlasSprite) ModItems.vial.contentIcon).getOriginX(),
-                        ((TextureAtlasSprite) ModItems.vial.contentIcon).getOriginY(), 0.0625F);
+                ItemRenderer.renderItemIn2D(tessellator, ModItems.vial.contentIcon.getMaxU(), ModItems.vial.contentIcon.getMinV(), ModItems.vial.contentIcon.getMinU(), ModItems.vial.contentIcon.getMaxV(), 192, 48, 0.0625F);
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-                ItemRenderer.renderItemIn2D(tessellator, ModItems.vial.itemIcon.getMaxU(), ModItems.vial.itemIcon.getMinV(), ModItems.vial.itemIcon.getMinU(), ModItems.vial.itemIcon.getMaxV(), ((TextureAtlasSprite) ModItems.vial.itemIcon).getOriginX(),
-                        ((TextureAtlasSprite) ModItems.vial.itemIcon).getOriginY(), 0.0625F);
+                ItemRenderer.renderItemIn2D(tessellator, ModItems.vial.itemIcon.getMaxU(), ModItems.vial.itemIcon.getMinV(), ModItems.vial.itemIcon.getMinU(), ModItems.vial.itemIcon.getMaxV(), 192, 48, 0.0625F);
                 return;
 
             case ENTITY:
                 float scale = 0.7F;
                 GL11.glPushMatrix();
                 GL11.glScalef(scale, scale, scale);
-                int x = ((TextureAtlasSprite) ModItems.vial.itemIcon).getOriginX();
-                int y = ((TextureAtlasSprite) ModItems.vial.itemIcon).getOriginY();
+                GL11.glTranslatef(-0.5F, 0, 0);
                 setColorForMolecule(molecule);
-                ItemRenderer.renderItemIn2D(tessellator, ModItems.vial.contentIcon.getMaxU(), ModItems.vial.contentIcon.getMinV(), ModItems.vial.contentIcon.getMinU(), ModItems.vial.contentIcon.getMaxV(), x, y, 0.05F);
+                ItemRenderer.renderItemIn2D(tessellator, ModItems.vial.contentIcon.getMinU(), ModItems.vial.contentIcon.getMinV(), ModItems.vial.contentIcon.getMaxU(), ModItems.vial.contentIcon.getMaxV(), 192, 48, 0.05F);
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-                ItemRenderer.renderItemIn2D(tessellator, ModItems.vial.itemIcon.getMaxU(), ModItems.vial.itemIcon.getMinV(), ModItems.vial.itemIcon.getMinU(), ModItems.vial.itemIcon.getMaxV(), x, y, 0.05F);
+                ItemRenderer.renderItemIn2D(tessellator, ModItems.vial.itemIcon.getMinU(), ModItems.vial.itemIcon.getMinV(), ModItems.vial.itemIcon.getMaxU(), ModItems.vial.itemIcon.getMaxV(), 192, 48, 0.05F);
                 GL11.glPopMatrix();
                 return;
         }

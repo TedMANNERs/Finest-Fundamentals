@@ -12,6 +12,7 @@ import com.binarytenshi.fundamentals.core.proxy.CommonProxy;
 import com.binarytenshi.fundamentals.item.ModItems;
 import com.binarytenshi.fundamentals.lib.Reference;
 import com.binarytenshi.fundamentals.network.PacketHandler;
+import com.binarytenshi.fundamentals.recipe.FundamentalsRecipies;
 
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
@@ -52,8 +53,8 @@ public class Fundamentals {
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
-        ModItems.addRecipies();
-
+        FundamentalsRecipies.initRecipies();
+        
         logger.info("I found " + Element.values.length + " elements.");
         logger.info("I found " + Molecule.values.length + " molecules.");
     }

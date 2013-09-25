@@ -14,8 +14,4 @@ public class ModItems {
         
         GameRegistry.registerItem(vial, ItemInfo.VIAL_UNLOCALIZED_NAME);
     }
-
-    public static void addRecipies() {
-
-    }
 }

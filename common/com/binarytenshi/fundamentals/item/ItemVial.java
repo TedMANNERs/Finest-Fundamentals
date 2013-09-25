@@ -21,7 +21,7 @@ public class ItemVial extends FundamentalsItem {
 
     @SideOnly(Side.CLIENT)
     public Icon contentIcon;
-    
+
     @SideOnly(Side.CLIENT)
     public Icon itemIcon;
 
@@ -35,9 +35,12 @@ public class ItemVial extends FundamentalsItem {
 
     @Override
     public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean bool) {
-        int atomicNumber = itemStack.getItemDamage();
+        Molecule molecule = Molecule.values[itemStack.getItemDamage()];
 
-        list.add("Contains: " + Molecule.values[itemStack.getItemDamage()].getName());
+        list.add("Contains: " + molecule.getName());
+        if (molecule != Molecule.NOTHING) {
+            list.add(molecule.getFormula());
+        }
     }
 
     @Override
