@@ -36,7 +36,11 @@ public class VialRenderer implements IItemRenderer {
 
     @Override
     public void renderItem(ItemRenderType type, ItemStack itemStack, Object... data) {
-        IContent content = ContentHelper.getContent(itemStack.stackTagCompound.getString(Strings.NBT_CONTENT));
+        IContent content = null;
+
+        if (itemStack.stackTagCompound != null)
+            content = ContentHelper.getContent(itemStack.stackTagCompound.getString(Strings.NBT_CONTENT));
+
         Tessellator tessellator = Tessellator.instance;
 
         switch (type) {
@@ -70,7 +74,11 @@ public class VialRenderer implements IItemRenderer {
     }
 
     private void setColor(IContent content) {
-        Color c = content.getColor();
+        Color c = new Color(0, 0, 0, 0);
+
+        if (content != null)
+            c = content.getColor();
+
         float r = c.getRed() / 255F;
         float g = c.getGreen() / 255F;
         float b = c.getBlue() / 255F;

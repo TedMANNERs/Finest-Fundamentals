@@ -42,23 +42,20 @@ public class ItemVial extends FundamentalsItem {
     @Override
     public void onCreated(ItemStack itemStack, World world, EntityPlayer player) {
         super.onCreated(itemStack, world, player);
-
-        if (itemStack.stackTagCompound == null) {
-            itemStack.setTagCompound(new NBTTagCompound());
-        }
-
-        itemStack.stackTagCompound.setString(Strings.NBT_CONTENT, Molecule.NOTHING.getId());
     }
 
     @Override
     public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean bool) {
-        String contentstr = itemStack.stackTagCompound.getString(Strings.NBT_CONTENT);
-        IContent content = ContentHelper.getContent(contentstr);
+        if (itemStack.stackTagCompound != null) {
+            IContent content = ContentHelper.getContent(itemStack.stackTagCompound.getString(Strings.NBT_CONTENT));
 
-        list.add(StatCollector.translateToLocal(LanguageStrings.TOOLTIP_CONTAINS) + " " + content.getName());
+            list.add(StatCollector.translateToLocal(LanguageStrings.TOOLTIP_CONTAINS) + " " + content.getName());
 
-        if (content.hasFormula())
-            list.add(content.getFormula());
+            if (content.hasFormula())
+                list.add(content.getFormula());
+        } else {
+            list.add(StatCollector.translateToLocal(LanguageStrings.TOOLTIP_CONTAINS) + " " + StatCollector.translateToLocal(LanguageStrings.TOOLTIP_NOTHING));
+        }
     }
 
     @Override
@@ -72,13 +69,14 @@ public class ItemVial extends FundamentalsItem {
             int blockId = world.getBlockId(position.blockX, position.blockY, position.blockZ);
             ItemStack newItemStack = null;
 
-            if (!itemStack.stackTagCompound.getString(Strings.NBT_CONTENT).contains(Molecule.NOTHING.getId()))
+            if (itemStack.stackTagCompound != null)
                 return itemStack;
 
             switch (blockId) {
                 case 8: /* Water */
                 case 9:
                     newItemStack = itemStack.splitStack(1);
+                    newItemStack.stackTagCompound = new NBTTagCompound();
                     newItemStack.stackTagCompound.setString(Strings.NBT_CONTENT, Molecule.WATER.getId());
                     break;
             }
@@ -103,8 +101,7 @@ public class ItemVial extends FundamentalsItem {
         for (IContent content : ContentHelper.getAllContents()) {
             ItemStack stack = new ItemStack(ModItems.vial);
 
-            if (stack.stackTagCompound == null)
-                stack.stackTagCompound = new NBTTagCompound();
+            stack.stackTagCompound = new NBTTagCompound();
 
             stack.stackTagCompound.setString(Strings.NBT_CONTENT, content.getId());
             list.add(stack);
