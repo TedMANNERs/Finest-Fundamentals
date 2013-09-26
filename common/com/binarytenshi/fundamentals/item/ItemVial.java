@@ -6,10 +6,14 @@ import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.Icon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
+import com.binarytenshi.fundamentals.core.ContentHelper;
+import com.binarytenshi.fundamentals.core.Element;
+import com.binarytenshi.fundamentals.core.IContent;
 import com.binarytenshi.fundamentals.core.Molecule;
 import com.binarytenshi.fundamentals.lib.ItemInfo;
 import com.binarytenshi.fundamentals.lib.Strings;
@@ -28,19 +32,31 @@ public class ItemVial extends FundamentalsItem {
     public ItemVial(int id) {
         super(id);
         setUnlocalizedName(Strings.RESOURCE_PREFIX + ItemInfo.VIAL_UNLOCALIZED_NAME);
-        setMaxStackSize(64);
         setHasSubtypes(true);
+        setMaxStackSize(64);
         setMaxDamage(0);
     }
 
     @Override
-    public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean bool) {
-        Molecule molecule = Molecule.values[itemStack.getItemDamage()];
+    public void onCreated(ItemStack itemStack, World world, EntityPlayer player) {
+        super.onCreated(itemStack, world, player);
 
-        list.add("Contains: " + molecule.getName());
-        if (molecule != Molecule.NOTHING) {
-            list.add(molecule.getFormula());
+        if (itemStack.stackTagCompound == null) {
+            itemStack.setTagCompound(new NBTTagCompound());
         }
+
+        itemStack.stackTagCompound.setString(Strings.NBT_CONTENT, Molecule.NOTHING.id);
+    }
+
+    @Override
+    public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean bool) {
+        String contentstr = itemStack.stackTagCompound.getString(Strings.NBT_CONTENT);
+        IContent content = ContentHelper.getContent(contentstr);
+
+        list.add("Contains: " + content.getName());
+        
+        if (content.hasFormula())
+            list.add(content.getFormula());
     }
 
     @Override
@@ -55,8 +71,7 @@ public class ItemVial extends FundamentalsItem {
         switch (blockId) {
             case 8: /* Water */
             case 9:
-                // TODO: differentiate between Molecules and Elements
-                setDamage(itemStack, Molecule.WATER.getMeta());
+                itemStack.stackTagCompound.setString(Strings.NBT_CONTENT, Molecule.WATER.getId());
                 break;
         }
 
@@ -72,8 +87,14 @@ public class ItemVial extends FundamentalsItem {
 
     @Override
     public void getSubItems(int id, CreativeTabs creativeTab, List list) {
-        for (int i = 0; i < Molecule.values.length; i++) {
-            list.add(new ItemStack(itemID, 1, i));
+        for (IContent content : ContentHelper.getAllContents()) {
+            ItemStack stack = new ItemStack(ModItems.vial);
+
+            if (stack.stackTagCompound == null)
+                stack.stackTagCompound = new NBTTagCompound();
+
+            stack.stackTagCompound.setString(Strings.NBT_CONTENT, content.getId());
+            list.add(stack);
         }
     }
 }
