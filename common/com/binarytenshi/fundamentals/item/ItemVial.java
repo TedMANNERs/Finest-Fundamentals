@@ -11,11 +11,12 @@ import net.minecraft.util.Icon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
 
-import com.binarytenshi.fundamentals.core.ContentHelper;
 import com.binarytenshi.fundamentals.core.Element;
 import com.binarytenshi.fundamentals.core.IContent;
 import com.binarytenshi.fundamentals.core.Molecule;
+import com.binarytenshi.fundamentals.core.helper.ContentHelper;
 import com.binarytenshi.fundamentals.lib.ItemInfo;
 import com.binarytenshi.fundamentals.lib.LanguageStrings;
 import com.binarytenshi.fundamentals.lib.Strings;

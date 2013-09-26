@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.lwjgl.util.Color;
 
-import com.binarytenshi.fundamentals.lib.ItemInfo;
 import com.binarytenshi.fundamentals.lib.Strings;
 
 public enum Molecule implements IContent {

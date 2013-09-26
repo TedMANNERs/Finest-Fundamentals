@@ -12,7 +12,7 @@ import com.binarytenshi.fundamentals.lib.Strings;
 public enum Element implements IContent {
     H("Hydrogen", 1, 0, 14, 20, new Color(170, 0, 0, 170)),
     O("Oxygen", 8, 8, 54, 90, new Color(170, 170, 0, 170)),
-    FE("Iron", 26, 30, 1808, 3032, new Color(150, 150, 150, 255));
+    FE("Iron", 26, 30, 1808, 3023, new Color(150, 150, 150, 255));
 
     public static Element[] values = values();
 

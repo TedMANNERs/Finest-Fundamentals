@@ -9,9 +9,9 @@ import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.Color;
 
-import com.binarytenshi.fundamentals.core.ContentHelper;
 import com.binarytenshi.fundamentals.core.IContent;
 import com.binarytenshi.fundamentals.core.Molecule;
+import com.binarytenshi.fundamentals.core.helper.ContentHelper;
 import com.binarytenshi.fundamentals.item.ModItems;
 import com.binarytenshi.fundamentals.lib.Strings;
 
