@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.Icon;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import com.binarytenshi.fundamentals.core.ContentHelper;
@@ -16,6 +17,7 @@ import com.binarytenshi.fundamentals.core.Element;
 import com.binarytenshi.fundamentals.core.IContent;
 import com.binarytenshi.fundamentals.core.Molecule;
 import com.binarytenshi.fundamentals.lib.ItemInfo;
+import com.binarytenshi.fundamentals.lib.LanguageStrings;
 import com.binarytenshi.fundamentals.lib.Strings;
 
 import cpw.mods.fml.relauncher.Side;
@@ -53,26 +55,37 @@ public class ItemVial extends FundamentalsItem {
         String contentstr = itemStack.stackTagCompound.getString(Strings.NBT_CONTENT);
         IContent content = ContentHelper.getContent(contentstr);
 
-        list.add("Contains: " + content.getName());
-        
+        list.add(StatCollector.translateToLocal(LanguageStrings.TOOLTIP_CONTAINS) + " " + content.getName());
+
         if (content.hasFormula())
             list.add(content.getFormula());
     }
 
     @Override
     public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
-        MovingObjectPosition position = this.getMovingObjectPositionFromPlayer(world, player, true);
+        if (!world.isRemote) {
+            MovingObjectPosition position = this.getMovingObjectPositionFromPlayer(world, player, true);
 
-        if (position == null)
-            return itemStack;
+            if (position == null)
+                return itemStack;
 
-        int blockId = world.getBlockId(position.blockX, position.blockY, position.blockZ);
+            int blockId = world.getBlockId(position.blockX, position.blockY, position.blockZ);
+            ItemStack newItemStack = null;
 
-        switch (blockId) {
-            case 8: /* Water */
-            case 9:
-                itemStack.stackTagCompound.setString(Strings.NBT_CONTENT, Molecule.WATER.getId());
-                break;
+            if (!itemStack.stackTagCompound.getString(Strings.NBT_CONTENT).contains(Molecule.NOTHING.getId()))
+                return itemStack;
+
+            switch (blockId) {
+                case 8: /* Water */
+                case 9:
+                    newItemStack = itemStack.splitStack(1);
+                    newItemStack.stackTagCompound.setString(Strings.NBT_CONTENT, Molecule.WATER.getId());
+                    break;
+            }
+
+            if (!player.inventory.addItemStackToInventory(newItemStack)) {
+                player.dropPlayerItem(newItemStack);
+            }
         }
 
         return itemStack;
