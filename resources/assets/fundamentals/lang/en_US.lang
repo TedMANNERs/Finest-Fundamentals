@@ -9,3 +9,6 @@ item.fundamentals:vial.name=Vial
 
 #Blocks
 tile.fundamentals:decomposer.name=Decomposer
+
+#Tooltips
+tooltip.fundamentals:contains=Contains:

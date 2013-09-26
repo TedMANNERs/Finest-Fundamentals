@@ -5,16 +5,20 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import com.binarytenshi.fundamentals.lib.ItemInfo;
+import org.lwjgl.util.Color;
 
-public enum Molecule {
-    NOTHING("Nothing", null),
-    WATER("Water", new SimpleEntry(Element.H, 2), new SimpleEntry(Element.O, 1));
+import com.binarytenshi.fundamentals.lib.ItemInfo;
+import com.binarytenshi.fundamentals.lib.Strings;
+
+public enum Molecule implements IContent {
+    NOTHING("Nothing", new Color(0, 0, 0, 0), null),
+    WATER("Water", new Color(0, 0, 255, 170), new SimpleEntry(Element.H, 2), new SimpleEntry(Element.O, 1));
 
     public static Molecule[] values = values();
 
-    private int meta;
+    private String id;
     private String name;
+    private Color color;
     private LinkedHashMap<Element, Integer> elements = new LinkedHashMap<Element, Integer>();
 
     // TODO: find an easier way to construct molecules (maybe)
@@ -26,9 +30,10 @@ public enum Molecule {
      * @param elements
      *            entries of elements and their count
      */
-    Molecule(String name, SimpleEntry<Element, Integer>... elements) {
+    Molecule(String name, Color color, SimpleEntry<Element, Integer>... elements) {
         this.name = name;
-        this.meta = ItemInfo.MOLECULE_NEXT_META++;
+        this.id = Strings.MOLECULE_PREFIX + name;
+        this.color = color;
 
         if (elements == null)
             return;
@@ -38,10 +43,12 @@ public enum Molecule {
         }
     }
 
+    @Override
     public String getName() {
         return this.name;
     }
 
+    @Override
     public String getFormula() {
         StringBuilder builder = new StringBuilder();
         Iterator it = this.elements.entrySet().iterator();
@@ -75,7 +82,27 @@ public enum Molecule {
         return val;
     }
 
-    public int getMeta() {
-        return this.meta;
+    public static Molecule getById(String content) {
+        for (Molecule m : values) {
+            if (m.id == content)
+                return m;
+        }
+
+        return null;
+    }
+
+    @Override
+    public String getId() {
+        return this.id;
+    }
+
+    @Override
+    public boolean hasFormula() {
+        return this != Molecule.NOTHING;
+    }
+
+    @Override
+    public Color getColor() {
+        return this.color;
     }
 }
