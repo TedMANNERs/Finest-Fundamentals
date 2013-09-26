@@ -7,11 +7,9 @@ import java.util.Map;
 
 import org.lwjgl.util.Color;
 
-import com.binarytenshi.fundamentals.lib.ItemInfo;
 import com.binarytenshi.fundamentals.lib.Strings;
 
 public enum Molecule implements IContent {
-    NOTHING("Nothing", new Color(0, 0, 0, 0), null),
     WATER("Water", new Color(0, 0, 255, 170), new SimpleEntry(Element.H, 2), new SimpleEntry(Element.O, 1));
 
     public static Molecule[] values = values();
@@ -21,7 +19,6 @@ public enum Molecule implements IContent {
     private Color color;
     private LinkedHashMap<Element, Integer> elements = new LinkedHashMap<Element, Integer>();
 
-    // TODO: find an easier way to construct molecules (maybe)
     /**
      * Represents a molecule (binding of elements)
      * 
@@ -98,7 +95,7 @@ public enum Molecule implements IContent {
 
     @Override
     public boolean hasFormula() {
-        return this != Molecule.NOTHING;
+        return true;
     }
 
     @Override
