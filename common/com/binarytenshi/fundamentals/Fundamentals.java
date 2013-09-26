@@ -56,8 +56,8 @@ public class Fundamentals {
     @EventHandler
     public void init(FMLInitializationEvent event) {
         FundamentalsRecipies.initRecipies();
-        ContentHelper.registerContent(Strings.ELEMENT_PREFIX.replace("_", ""), Element.values);
-        ContentHelper.registerContent(Strings.MOLECULE_PREFIX.replace("_", ""), Molecule.values);
+        ContentHelper.registerContent(Strings.ELEMENT_PREFIX.replace(Strings.CONTENT_SEPERATOR, ""), Element.values);
+        ContentHelper.registerContent(Strings.MOLECULE_PREFIX.replace(Strings.CONTENT_SEPERATOR, ""), Molecule.values);
         
         logger.info("I found " + Element.values.length + " elements.");
         logger.info("I found " + Molecule.values.length + " molecules.");

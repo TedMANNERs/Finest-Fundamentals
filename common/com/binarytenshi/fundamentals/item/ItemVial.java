@@ -45,7 +45,7 @@ public class ItemVial extends FundamentalsItem {
             itemStack.setTagCompound(new NBTTagCompound());
         }
 
-        itemStack.stackTagCompound.setString(Strings.NBT_CONTENT, Molecule.NOTHING.id);
+        itemStack.stackTagCompound.setString(Strings.NBT_CONTENT, Molecule.NOTHING.getId());
     }
 
     @Override

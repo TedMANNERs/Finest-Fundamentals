@@ -1,5 +1,7 @@
 package com.binarytenshi.fundamentals.core;
 
+import org.lwjgl.util.Color;
+
 import com.binarytenshi.fundamentals.lib.Strings;
 
 /**
@@ -8,14 +10,15 @@ import com.binarytenshi.fundamentals.lib.Strings;
  * @author BinaryTENSHi
  */
 public enum Element implements IContent {
-    H("Hydrogen", 1, 0, 14, 20),
-    O("Oxygen", 8, 8, 54, 90),
-    FE("Iron", 26, 30, 1808, 3032);
+    H("Hydrogen", 1, 0, 14, 20, new Color(170, 0, 0, 170)),
+    O("Oxygen", 8, 8, 54, 90, new Color(170, 170, 0, 170)),
+    FE("Iron", 26, 30, 1808, 3032, new Color(150, 150, 150, 255));
 
     public static Element[] values = values();
 
     private String id;
     private String name;
+    private Color color;
 
     private int protons;
     private int neutrons;
@@ -39,9 +42,10 @@ public enum Element implements IContent {
      * @param boilingPoint
      *            boiling point in Kelvin
      */
-    Element(String name, int protons, int neutrons, int meltingPoint, int boilingPoint) {
+    Element(String name, int protons, int neutrons, int meltingPoint, int boilingPoint, Color color) {
         this.name = name;
         this.id = Strings.ELEMENT_PREFIX + name;
+        this.color = color;
 
         this.protons = protons;
         this.neutrons = neutrons;
@@ -63,12 +67,12 @@ public enum Element implements IContent {
 
     @Override
     public String getId() {
-        return id;
+        return this.id;
     }
 
     @Override
     public String getName() {
-        return name;
+        return this.name;
     }
 
     @Override
@@ -79,5 +83,10 @@ public enum Element implements IContent {
     @Override
     public String getFormula() {
         return null;
+    }
+
+    @Override
+    public Color getColor() {
+        return this.color;
     }
 }
