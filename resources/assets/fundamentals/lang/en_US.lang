@@ -11,4 +11,5 @@ item.fundamentals:vial.name=Vial
 tile.fundamentals:decomposer.name=Decomposer
 
 #Tooltips
-tooltip.fundamentals:contains=Contains:
+tooltip.fundamentals:contains=Contains
+tooltip.fundamentals:nothing=nothing

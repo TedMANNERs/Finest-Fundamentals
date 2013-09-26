@@ -1,4 +1,4 @@
-package com.binarytenshi.fundamentals.core;
+package com.binarytenshi.fundamentals.core.helper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import com.binarytenshi.fundamentals.core.IContent;
 import com.binarytenshi.fundamentals.lib.Strings;
 
 public class ContentHelper {

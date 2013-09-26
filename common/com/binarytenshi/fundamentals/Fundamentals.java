@@ -3,12 +3,14 @@ package com.binarytenshi.fundamentals;
 import java.util.logging.Logger;
 
 import net.minecraft.creativetab.CreativeTabs;
+import codechicken.nei.forge.GuiContainerManager;
 
 import com.binarytenshi.fundamentals.blocks.ModBlocks;
 import com.binarytenshi.fundamentals.config.ConfigHandler;
-import com.binarytenshi.fundamentals.core.ContentHelper;
 import com.binarytenshi.fundamentals.core.Element;
 import com.binarytenshi.fundamentals.core.Molecule;
+import com.binarytenshi.fundamentals.core.handler.ContentTooltipHandler;
+import com.binarytenshi.fundamentals.core.helper.ContentHelper;
 import com.binarytenshi.fundamentals.core.proxy.CommonProxy;
 import com.binarytenshi.fundamentals.item.ModItems;
 import com.binarytenshi.fundamentals.lib.Reference;
@@ -58,13 +60,13 @@ public class Fundamentals {
         FundamentalsRecipies.initRecipies();
         ContentHelper.registerContent(Strings.ELEMENT_PREFIX.replace(Strings.CONTENT_SEPERATOR, ""), Element.values);
         ContentHelper.registerContent(Strings.MOLECULE_PREFIX.replace(Strings.CONTENT_SEPERATOR, ""), Molecule.values);
-        
+
         logger.info("I found " + Element.values.length + " elements.");
         logger.info("I found " + Molecule.values.length + " molecules.");
     }
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-
+        GuiContainerManager.tooltipHandlers.add(new ContentTooltipHandler());
     }
 }
