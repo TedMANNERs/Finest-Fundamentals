@@ -6,11 +6,13 @@ import net.minecraft.creativetab.CreativeTabs;
 
 import com.binarytenshi.fundamentals.blocks.ModBlocks;
 import com.binarytenshi.fundamentals.config.ConfigHandler;
+import com.binarytenshi.fundamentals.core.ContentHelper;
 import com.binarytenshi.fundamentals.core.Element;
 import com.binarytenshi.fundamentals.core.Molecule;
 import com.binarytenshi.fundamentals.core.proxy.CommonProxy;
 import com.binarytenshi.fundamentals.item.ModItems;
 import com.binarytenshi.fundamentals.lib.Reference;
+import com.binarytenshi.fundamentals.lib.Strings;
 import com.binarytenshi.fundamentals.network.PacketHandler;
 import com.binarytenshi.fundamentals.recipe.FundamentalsRecipies;
 
@@ -54,6 +56,8 @@ public class Fundamentals {
     @EventHandler
     public void init(FMLInitializationEvent event) {
         FundamentalsRecipies.initRecipies();
+        ContentHelper.registerContent(Strings.ELEMENT_PREFIX.replace(Strings.CONTENT_SEPERATOR, ""), Element.values);
+        ContentHelper.registerContent(Strings.MOLECULE_PREFIX.replace(Strings.CONTENT_SEPERATOR, ""), Molecule.values);
         
         logger.info("I found " + Element.values.length + " elements.");
         logger.info("I found " + Molecule.values.length + " molecules.");
