@@ -5,6 +5,12 @@ import com.binarytenshi.fundamentals.item.ModItems;
 
 import net.minecraftforge.client.MinecraftForgeClient;
 
+/**
+ * Client proxy class
+ * 
+ * @author BinaryTENSHi
+ *
+ */
 public class ClientProxy extends CommonProxy {
 
     @Override

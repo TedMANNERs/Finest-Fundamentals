@@ -1,5 +1,11 @@
 package com.binarytenshi.fundamentals.lib;
 
+/**
+ * Contains various static values that are used across the whole mod.
+ * 
+ * @author BinaryTENSHi
+ *
+ */
 public class Reference {
     /* Debug Mode */
     public static final boolean DEBUG_MODE = true;

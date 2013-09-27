@@ -9,7 +9,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 
 /**
- * Basic block which acts as a super class for all fundamentals blocks
+ * Basic block which acts as a super class for all fundamentals blocks. <br>
+ * Will later extend IC2 EnergySink to accept and use EU.
  * 
  * @author BinaryTENSHi
  */

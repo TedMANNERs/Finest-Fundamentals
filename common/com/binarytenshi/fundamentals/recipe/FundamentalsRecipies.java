@@ -9,6 +9,12 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.registry.GameRegistry;
 
+/**
+ * Instantiates and registers all fundamentals recipies.
+ * 
+ * @author BinaryTENSHi
+ *
+ */
 public class FundamentalsRecipies {
 
     public static void initRecipies() {

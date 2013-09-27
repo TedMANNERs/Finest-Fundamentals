@@ -5,7 +5,9 @@ import org.lwjgl.util.Color;
 import com.binarytenshi.fundamentals.lib.Strings;
 
 /**
- * Represents the Elements in the world
+ * Represents the Elements in the world. <br>
+ * > Have different melting/boiling points to separate them from molecules <br>
+ * > Cannot be split further (for now)
  * 
  * @author BinaryTENSHi
  */
@@ -44,7 +46,7 @@ public enum Element implements IContent {
      */
     Element(String name, int protons, int neutrons, int meltingPoint, int boilingPoint, Color color) {
         this.name = name;
-        this.id = Strings.ELEMENT_PREFIX + name;
+        this.id = name.toLowerCase();
         this.color = color;
 
         this.protons = protons;

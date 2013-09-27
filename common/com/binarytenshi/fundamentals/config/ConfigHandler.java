@@ -8,6 +8,12 @@ import com.binarytenshi.fundamentals.lib.Reference;
 
 import net.minecraftforge.common.Configuration;
 
+/**
+ * Handles read/write access to the fundamentals configuration file.
+ * 
+ * @author BinaryTENSHi
+ *
+ */
 public class ConfigHandler {
 
     public static void init(File file) {

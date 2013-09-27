@@ -15,6 +15,15 @@ import com.binarytenshi.fundamentals.core.helper.ContentHelper;
 import com.binarytenshi.fundamentals.item.ModItems;
 import com.binarytenshi.fundamentals.lib.Strings;
 
+/**
+ * Custom render for ItemVial <br>
+ * Currently renders the content as a solid regardless of
+ * it's melting / boiling point. <br>
+ * It does however take the content color into account. <br>
+ * 
+ * @author BinaryTENSHi
+ *
+ */
 public class VialRenderer implements IItemRenderer {
 
     @Override

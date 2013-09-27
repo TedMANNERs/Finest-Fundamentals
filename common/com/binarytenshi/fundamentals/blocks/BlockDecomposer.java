@@ -6,7 +6,10 @@ import com.binarytenshi.fundamentals.lib.Strings;
 import net.minecraft.block.material.Material;
 
 /**
- * Decompose molecules into elements
+ * Decompose molecules into elements. <br>
+ * Currently does absolutely nothing. <br>
+ * Will be replaced by various machines that decompose molecules
+ * using different methods like a destiller.
  * 
  * @author BinaryTENSHi
  */

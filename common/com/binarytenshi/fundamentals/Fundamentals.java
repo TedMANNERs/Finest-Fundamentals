@@ -28,13 +28,19 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 
+/**
+ * Main mod class for Finest-Fundamentals.
+ * 
+ * @author BinaryTENSHi
+ *
+ */
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION, dependencies = "required-after:IC2")
 @NetworkMod(channels = Reference.CHANNEL_NAME, clientSideRequired = true, serverSideRequired = false, packetHandler = PacketHandler.class)
 public class Fundamentals {
 
     @Instance(Reference.MOD_ID)
     public static Fundamentals instance;
-
+    
     public static Logger logger = Logger.getLogger(Reference.MOD_NAME);
 
     public static CreativeTabs creativeTab = new CreativeTabs(Reference.MOD_ID);
@@ -58,8 +64,8 @@ public class Fundamentals {
     @EventHandler
     public void init(FMLInitializationEvent event) {
         FundamentalsRecipies.initRecipies();
-        ContentHelper.registerContent(Strings.ELEMENT_PREFIX.replace(Strings.CONTENT_SEPERATOR, ""), Element.values);
-        ContentHelper.registerContent(Strings.MOLECULE_PREFIX.replace(Strings.CONTENT_SEPERATOR, ""), Molecule.values);
+        ContentHelper.registerContent(Element.values);
+        ContentHelper.registerContent(Molecule.values);
 
         logger.info("I found " + Element.values.length + " elements.");
         logger.info("I found " + Molecule.values.length + " molecules.");

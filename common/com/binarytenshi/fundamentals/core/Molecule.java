@@ -9,6 +9,14 @@ import org.lwjgl.util.Color;
 
 import com.binarytenshi.fundamentals.lib.Strings;
 
+/**
+ * Represents the molecules in the world. <br>
+ * > Constructed out of elements <br>
+ * > Can be decomposed via various methods <br>
+ * 
+ * @author BinaryTENSHi
+ *
+ */
 public enum Molecule implements IContent {
     WATER("Water", new Color(0, 0, 255, 170), new SimpleEntry(Element.H, 2), new SimpleEntry(Element.O, 1));
 
@@ -29,7 +37,7 @@ public enum Molecule implements IContent {
      */
     Molecule(String name, Color color, SimpleEntry<Element, Integer>... elements) {
         this.name = name;
-        this.id = Strings.MOLECULE_PREFIX + name;
+        this.id = name.toLowerCase();
         this.color = color;
 
         if (elements == null)

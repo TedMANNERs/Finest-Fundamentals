@@ -5,6 +5,12 @@ import com.binarytenshi.fundamentals.lib.ItemInfo;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
 
+/**
+ * Class for instantiating and storing all fundamentals items.
+ * 
+ * @author BinaryTENSHi
+ *
+ */
 public class ModItems {
     
     public static ItemVial vial;

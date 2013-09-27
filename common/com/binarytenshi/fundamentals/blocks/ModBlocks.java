@@ -6,6 +6,12 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
+/**
+ * Class for instantiating and storing all fundamentals blocks.
+ * 
+ * @author BinaryTENSHi
+ *
+ */
 public class ModBlocks {
 
     public static Block decomposer;
