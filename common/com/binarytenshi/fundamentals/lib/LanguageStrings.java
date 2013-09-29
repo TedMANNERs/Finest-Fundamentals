@@ -1,10 +1,9 @@
 package com.binarytenshi.fundamentals.lib;
 
 /**
- * Contains various strings that will be localized. 
+ * Contains various strings that will be localized.
  * 
  * @author BinaryTENSHi
- *
  */
 public class LanguageStrings {
 

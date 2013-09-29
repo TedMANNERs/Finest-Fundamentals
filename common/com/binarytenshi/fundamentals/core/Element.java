@@ -2,8 +2,6 @@ package com.binarytenshi.fundamentals.core;
 
 import org.lwjgl.util.Color;
 
-import com.binarytenshi.fundamentals.lib.Strings;
-
 /**
  * Represents the Elements in the world. <br>
  * > Have different melting/boiling points to separate them from molecules <br>
@@ -18,17 +16,20 @@ public enum Element implements IContent {
 
     public static Element[] values = values();
 
+    public static Element getById(String content) {
+        for (Element e : values) {
+            if (e.id == content) {
+                return e;
+            }
+        }
+
+        return null;
+    }
+
     private String id;
     private String name;
+
     private Color color;
-
-    private int protons;
-    private int neutrons;
-    private int electrons;
-    private int mass;
-
-    private int meltingPoint;
-    private int boilingPoint;
 
     /**
      * Instantiates a new Element
@@ -48,22 +49,15 @@ public enum Element implements IContent {
         this.name = name;
         this.id = name.toLowerCase();
         this.color = color;
-
-        this.protons = protons;
-        this.neutrons = neutrons;
-        this.electrons = protons;
-        this.meltingPoint = meltingPoint;
-        this.boilingPoint = boilingPoint;
-
-        this.mass = protons + neutrons;
     }
 
-    public static Element getById(String content) {
-        for (Element e : values) {
-            if (e.id == content)
-                return e;
-        }
+    @Override
+    public Color getColor() {
+        return this.color;
+    }
 
+    @Override
+    public String getFormula() {
         return null;
     }
 
@@ -80,15 +74,5 @@ public enum Element implements IContent {
     @Override
     public boolean hasFormula() {
         return false;
-    }
-
-    @Override
-    public String getFormula() {
-        return null;
-    }
-
-    @Override
-    public Color getColor() {
-        return this.color;
     }
 }

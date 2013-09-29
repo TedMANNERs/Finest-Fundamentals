@@ -28,6 +28,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.network.NetworkRegistry;
 
 /**
  * Main mod class for Finest-Fundamentals.
@@ -52,29 +53,16 @@ public class Fundamentals {
     }
 
     @EventHandler
-    public void preInit(FMLPreInitializationEvent event) {
-        ConfigHandler.init(event.getSuggestedConfigurationFile());
-
-        ModItems.init();
-        ModBlocks.init();
-
-        proxy.initSounds();
-        proxy.initRenderers();
-    }
-
-    @EventHandler
     public void init(FMLInitializationEvent event) {
-        FundamentalsRecipies.initRecipies();
+        NetworkRegistry.instance().registerGuiHandler(instance, proxy);
+
         ContentHelper.registerContent(Element.values);
         ContentHelper.registerContent(Molecule.values);
 
+        FundamentalsRecipies.initRecipies();
+
         logger.info("I found " + Element.values.length + " elements.");
         logger.info("I found " + Molecule.values.length + " molecules.");
-    }
-
-    @EventHandler
-    public void postInit(FMLPostInitializationEvent event) {
-        GuiContainerManager.tooltipHandlers.add(new ContentTooltipHandler());
     }
 
     @EventHandler
@@ -84,5 +72,22 @@ public class Fundamentals {
         } else {
             logger.severe(Strings.INVALID_FINGERPRINT_MESSAGE);
         }
+    }
+
+    @EventHandler
+    public void postInit(FMLPostInitializationEvent event) {
+        GuiContainerManager.tooltipHandlers.add(new ContentTooltipHandler());
+    }
+
+    @EventHandler
+    public void preInit(FMLPreInitializationEvent event) {
+        ConfigHandler.init(event.getSuggestedConfigurationFile());
+
+        ModItems.init();
+        ModBlocks.init();
+
+        proxy.registerTileEntities();
+        proxy.initSounds();
+        proxy.initRenderers();
     }
 }

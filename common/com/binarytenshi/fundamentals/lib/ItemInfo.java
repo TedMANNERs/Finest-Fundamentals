@@ -7,7 +7,6 @@ package com.binarytenshi.fundamentals.lib;
  * > Unlocalized names <br>
  * 
  * @author BinaryTENSHi
- *
  */
 public class ItemInfo {
     public static final int BASE_ID = 20000;

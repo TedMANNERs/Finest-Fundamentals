@@ -7,11 +7,11 @@ package com.binarytenshi.fundamentals.lib;
  * > Unlocalized names <br>
  * 
  * @author BinaryTENSHi
- *
  */
 public class BlockInfo {
     public static final int BASE_ID = 2100;
 
-    public static int DECOMPOSER_ID;
-    public static final String DECOMPOSER_UNLOCALIZED_NAME = "decomposer";
+    public static int CHEMICALTABLE_ID;
+    public static final String CHEMICALTABLE_UNLOCALIZED_NAME = "chemicalTable";
+    public static final int CHEMICALTABLE_RENDER_ID = 0;
 }
