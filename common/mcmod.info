@@ -3,7 +3,7 @@
   "modid": "fundamentals",
   "name": "Finest Fundamentals",
   "description": "Explore the fundamentals of Minecraft: Chemistry, Physics, everything!",
-  "version": "0.0.1",
+  "version": "@VERSION@",
   "url": "",
   "updateUrl": "",
   "authorList": [

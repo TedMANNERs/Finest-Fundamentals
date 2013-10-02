@@ -7,17 +7,33 @@ import java.util.Map;
 
 import org.lwjgl.util.Color;
 
-import com.binarytenshi.fundamentals.lib.Strings;
-
+/**
+ * Represents the molecules in the world. <br>
+ * > Constructed out of elements <br>
+ * > Can be decomposed via various methods <br>
+ * 
+ * @author BinaryTENSHi
+ */
 public enum Molecule implements IContent {
     WATER("Water", new Color(0, 0, 255, 170), new SimpleEntry(Element.H, 2), new SimpleEntry(Element.O, 1));
 
     public static Molecule[] values = values();
 
+    public static Molecule getById(String content) {
+        for (Molecule m : values) {
+            if (m.id == content) {
+                return m;
+            }
+        }
+
+        return null;
+    }
+
     private String id;
     private String name;
     private Color color;
-    private LinkedHashMap<Element, Integer> elements = new LinkedHashMap<Element, Integer>();
+
+    private final LinkedHashMap<Element, Integer> elements = new LinkedHashMap<Element, Integer>();
 
     /**
      * Represents a molecule (binding of elements)
@@ -29,39 +45,23 @@ public enum Molecule implements IContent {
      */
     Molecule(String name, Color color, SimpleEntry<Element, Integer>... elements) {
         this.name = name;
-        this.id = Strings.MOLECULE_PREFIX + name;
+        this.id = name.toLowerCase();
         this.color = color;
 
-        if (elements == null)
+        if (elements == null) {
             return;
+        }
 
         for (SimpleEntry<Element, Integer> entry : elements) {
             this.elements.put(entry.getKey(), entry.getValue());
         }
     }
 
-    @Override
-    public String getName() {
-        return this.name;
-    }
-
-    @Override
-    public String getFormula() {
-        StringBuilder builder = new StringBuilder();
-        Iterator it = this.elements.entrySet().iterator();
-
-        while (it.hasNext()) {
-            Map.Entry<Element, Integer> pair = (Map.Entry<Element, Integer>) it.next();
-            builder.append(pair.getKey().toString() + convertNumber(pair.getValue()));
-        }
-
-        return builder.toString();
-    }
-
     /* This method converts a number into a half height string */
     private String convertNumber(Integer number) {
-        if (number == 1)
+        if (number == 1) {
             return "";
+        }
 
         String val = String.valueOf(number);
 
@@ -79,13 +79,22 @@ public enum Molecule implements IContent {
         return val;
     }
 
-    public static Molecule getById(String content) {
-        for (Molecule m : values) {
-            if (m.id == content)
-                return m;
+    @Override
+    public Color getColor() {
+        return this.color;
+    }
+
+    @Override
+    public String getFormula() {
+        StringBuilder builder = new StringBuilder();
+        Iterator it = this.elements.entrySet().iterator();
+
+        while (it.hasNext()) {
+            Map.Entry<Element, Integer> pair = (Map.Entry<Element, Integer>) it.next();
+            builder.append(pair.getKey().toString() + convertNumber(pair.getValue()));
         }
 
-        return null;
+        return builder.toString();
     }
 
     @Override
@@ -94,12 +103,12 @@ public enum Molecule implements IContent {
     }
 
     @Override
-    public boolean hasFormula() {
-        return true;
+    public String getName() {
+        return this.name;
     }
 
     @Override
-    public Color getColor() {
-        return this.color;
+    public boolean hasFormula() {
+        return true;
     }
 }

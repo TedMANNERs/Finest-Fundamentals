@@ -24,6 +24,15 @@ import com.binarytenshi.fundamentals.lib.Strings;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+/**
+ * A glass vial that can contain an {@link IContent}. <br>
+ * To access that content, read stackTagCompound.getString({@link Strings}.NBT_CONTENT)
+ * and call {@link ContentHelper}.getContent(string) to get the appropriate {@link IContent}
+ * if it's registered.
+ * 
+ * @author BinaryTENSHi
+ *
+ */
 public class ItemVial extends FundamentalsItem {
 
     @SideOnly(Side.CLIENT)
@@ -99,6 +108,8 @@ public class ItemVial extends FundamentalsItem {
 
     @Override
     public void getSubItems(int id, CreativeTabs creativeTab, List list) {
+        list.add(new ItemStack(ModItems.vial)); // Empty vial
+        
         for (IContent content : ContentHelper.getAllContents()) {
             ItemStack stack = new ItemStack(ModItems.vial);
 

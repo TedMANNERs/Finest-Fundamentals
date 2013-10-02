@@ -8,6 +8,11 @@ import net.minecraft.item.Item;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+/**
+ * Basic item which acts as a super class for all fundamentals items. <br>
+ * 
+ * @author BinaryTENSHi
+ */
 public class FundamentalsItem extends Item {
 
     public FundamentalsItem(int id) {

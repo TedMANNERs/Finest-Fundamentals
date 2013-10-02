@@ -10,12 +10,29 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.Color;
 
 import com.binarytenshi.fundamentals.core.IContent;
-import com.binarytenshi.fundamentals.core.Molecule;
 import com.binarytenshi.fundamentals.core.helper.ContentHelper;
 import com.binarytenshi.fundamentals.item.ModItems;
 import com.binarytenshi.fundamentals.lib.Strings;
 
+/**
+ * Custom render for ItemVial <br>
+ * Currently renders the content as a solid regardless of
+ * it's melting / boiling point. <br>
+ * It does however take the content color into account. <br>
+ * 
+ * @author BinaryTENSHi
+ */
 public class VialRenderer implements IItemRenderer {
+
+    private void drawTexturedRectUV(int x, int y, int z, int width, int height, Icon icon) {
+        Tessellator tesselator = Tessellator.instance;
+        tesselator.startDrawingQuads();
+        tesselator.addVertexWithUV(x, y + height, z, icon.getMinU(), icon.getMaxV());
+        tesselator.addVertexWithUV(x + width, y + height, z, icon.getMaxU(), icon.getMaxV());
+        tesselator.addVertexWithUV(x + width, y, z, icon.getMaxU(), icon.getMinV());
+        tesselator.addVertexWithUV(x, y, z, icon.getMinU(), icon.getMinV());
+        tesselator.draw();
+    }
 
     @Override
     public boolean handleRenderType(ItemStack itemStack, ItemRenderType type) {
@@ -23,23 +40,12 @@ public class VialRenderer implements IItemRenderer {
     }
 
     @Override
-    public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack itemStack, ItemRendererHelper helper) {
-        switch (helper) {
-            case ENTITY_BOBBING:
-                return true;
-            case ENTITY_ROTATION:
-                return true;
-        }
-
-        return false;
-    }
-
-    @Override
     public void renderItem(ItemRenderType type, ItemStack itemStack, Object... data) {
         IContent content = null;
 
-        if (itemStack.stackTagCompound != null)
+        if (itemStack.stackTagCompound != null) {
             content = ContentHelper.getContent(itemStack.stackTagCompound.getString(Strings.NBT_CONTENT));
+        }
 
         Tessellator tessellator = Tessellator.instance;
 
@@ -76,8 +82,9 @@ public class VialRenderer implements IItemRenderer {
     private void setColor(IContent content) {
         Color c = new Color(0, 0, 0, 0);
 
-        if (content != null)
+        if (content != null) {
             c = content.getColor();
+        }
 
         float r = c.getRed() / 255F;
         float g = c.getGreen() / 255F;
@@ -86,13 +93,15 @@ public class VialRenderer implements IItemRenderer {
         GL11.glColor4f(r, g, b, a);
     }
 
-    private void drawTexturedRectUV(int x, int y, int z, int width, int height, Icon icon) {
-        Tessellator tesselator = Tessellator.instance;
-        tesselator.startDrawingQuads();
-        tesselator.addVertexWithUV(x, y + height, z, icon.getMinU(), icon.getMaxV());
-        tesselator.addVertexWithUV(x + width, y + height, z, icon.getMaxU(), icon.getMaxV());
-        tesselator.addVertexWithUV(x + width, y, z, icon.getMaxU(), icon.getMinV());
-        tesselator.addVertexWithUV(x, y, z, icon.getMinU(), icon.getMinV());
-        tesselator.draw();
+    @Override
+    public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack itemStack, ItemRendererHelper helper) {
+        switch (helper) {
+            case ENTITY_BOBBING:
+                return true;
+            case ENTITY_ROTATION:
+                return true;
+        }
+
+        return false;
     }
 }
