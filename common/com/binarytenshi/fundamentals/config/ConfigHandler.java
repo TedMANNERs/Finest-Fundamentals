@@ -2,13 +2,26 @@ package com.binarytenshi.fundamentals.config;
 
 import java.io.File;
 
+import net.minecraftforge.common.Configuration;
+
 import com.binarytenshi.fundamentals.lib.BlockInfo;
 import com.binarytenshi.fundamentals.lib.ItemInfo;
 import com.binarytenshi.fundamentals.lib.Reference;
 
-import net.minecraftforge.common.Configuration;
-
+/**
+ * Handles read/write access to the fundamentals configuration file.
+ * 
+ * @author BinaryTENSHi
+ */
 public class ConfigHandler {
+
+    private static int getBlockId(Configuration config, String key, int id) {
+        return config.getBlock(key, id).getInt(id);
+    }
+
+    private static int getItemId(Configuration config, String key, int defaultId) {
+        return config.getItem(Configuration.CATEGORY_ITEM, key, defaultId).getInt(defaultId) - Reference.ITEM_ID_SHIFT;
+    }
 
     public static void init(File file) {
         Configuration config = new Configuration(file);
@@ -20,16 +33,8 @@ public class ConfigHandler {
 
         /* Load Blocks */
         id = BlockInfo.BASE_ID;
-        BlockInfo.DECOMPOSER_ID = getBlockId(config, BlockInfo.DECOMPOSER_UNLOCALIZED_NAME, id++);
+        BlockInfo.CHEMICALTABLE_ID = getBlockId(config, BlockInfo.CHEMICALTABLE_UNLOCALIZED_NAME, id++);
 
         config.save();
-    }
-
-    private static int getBlockId(Configuration config, String key, int id) {
-        return config.getBlock(key, id).getInt(id);
-    }
-
-    private static int getItemId(Configuration config, String key, int defaultId) {
-        return config.getItem(Configuration.CATEGORY_ITEM, key, defaultId).getInt(defaultId) - Reference.ITEM_ID_SHIFT;
     }
 }

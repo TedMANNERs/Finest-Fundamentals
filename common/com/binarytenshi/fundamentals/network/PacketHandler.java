@@ -5,6 +5,12 @@ import net.minecraft.network.packet.Packet250CustomPayload;
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.Player;
 
+/**
+ * Packet handler class
+ * 
+ * @author BinaryTENSHi
+ *
+ */
 public class PacketHandler implements IPacketHandler {
 
     @Override

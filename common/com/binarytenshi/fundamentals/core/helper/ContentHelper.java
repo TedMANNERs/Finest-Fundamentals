@@ -9,22 +9,23 @@ import java.util.Map;
 import com.binarytenshi.fundamentals.core.IContent;
 import com.binarytenshi.fundamentals.lib.Strings;
 
+/**
+ * Handles all registered {@link IContent} objects which can be stored inside vials.
+ * 
+ * @author BinaryTENSHi
+ *
+ */
 public class ContentHelper {
 
-    private static LinkedHashMap<String, IContent[]> contentMap = new LinkedHashMap<String, IContent[]>();
+    private static ArrayList<IContent> contentList = new ArrayList<IContent>();
 
-    public static void registerContent(String id, IContent... enumerable) {
-        contentMap.put(id, enumerable);
+    public static void registerContent(IContent... contents) {
+        contentList.addAll(Arrays.asList(contents));
     }
 
-    public static IContent getContent(String contentstr) {
-        String id = contentstr.split(Strings.CONTENT_SEPERATOR)[0];
-        String name = contentstr.split(Strings.CONTENT_SEPERATOR)[1];
-
-        IContent[] entries = contentMap.get(id);
-
-        for (IContent entry : entries) {
-            if (entry.getName().equals(name))
+    public static IContent getContent(String id) {
+        for (IContent entry : contentList) {
+            if (entry.getId().equals(id))
                 return entry;
         }
 
@@ -32,12 +33,6 @@ public class ContentHelper {
     }
 
     public static ArrayList<IContent> getAllContents() {
-        ArrayList<IContent> contents = new ArrayList<IContent>();
-        
-        for (IContent[] arr : contentMap.values()) {
-            contents.addAll(Arrays.asList(arr));
-        }
-
-        return contents;
+        return contentList;
     }
 }

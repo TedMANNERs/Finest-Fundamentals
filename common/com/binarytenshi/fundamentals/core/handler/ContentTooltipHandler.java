@@ -6,6 +6,13 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
 import codechicken.nei.forge.IContainerTooltipHandler;
 
+/**
+ * Handles displaying tooltips over all items. <br>
+ * Will be used to display chemical formulas over vanilla items.
+ * 
+ * @author BinaryTENSHi
+ *
+ */
 public class ContentTooltipHandler implements IContainerTooltipHandler {
 
     @Override
