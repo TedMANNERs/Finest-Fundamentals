@@ -11,9 +11,7 @@ import net.minecraft.util.Icon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
 
-import com.binarytenshi.fundamentals.core.Element;
 import com.binarytenshi.fundamentals.core.IContent;
 import com.binarytenshi.fundamentals.core.Molecule;
 import com.binarytenshi.fundamentals.core.helper.ContentHelper;
@@ -26,12 +24,12 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * A glass vial that can contain an {@link IContent}. <br>
- * To access that content, read stackTagCompound.getString({@link Strings}.NBT_CONTENT)
- * and call {@link ContentHelper}.getContent(string) to get the appropriate {@link IContent}
- * if it's registered.
+ * To access that content, read stackTagCompound.getString({@link Strings}
+ * .NBT_CONTENT)
+ * and call {@link ContentHelper}.getContent(string) to get the appropriate
+ * {@link IContent} if it's registered.
  * 
  * @author BinaryTENSHi
- *
  */
 public class ItemVial extends FundamentalsItem {
 
@@ -50,37 +48,54 @@ public class ItemVial extends FundamentalsItem {
     }
 
     @Override
-    public void onCreated(ItemStack itemStack, World world, EntityPlayer player) {
-        super.onCreated(itemStack, world, player);
-    }
-
-    @Override
     public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean bool) {
         if (itemStack.stackTagCompound != null) {
             IContent content = ContentHelper.getContent(itemStack.stackTagCompound.getString(Strings.NBT_CONTENT));
 
             list.add(StatCollector.translateToLocal(LanguageStrings.TOOLTIP_CONTAINS) + " " + content.getName());
 
-            if (content.hasFormula())
+            if (content.hasFormula()) {
                 list.add(content.getFormula());
+            }
         } else {
             list.add(StatCollector.translateToLocal(LanguageStrings.TOOLTIP_CONTAINS) + " " + StatCollector.translateToLocal(LanguageStrings.TOOLTIP_NOTHING));
         }
     }
 
     @Override
+    public void getSubItems(int id, CreativeTabs creativeTab, List list) {
+        list.add(new ItemStack(ModItems.vial)); // Empty vial
+
+        for (IContent content : ContentHelper.getAllContents()) {
+            ItemStack stack = new ItemStack(ModItems.vial);
+
+            stack.stackTagCompound = new NBTTagCompound();
+
+            stack.stackTagCompound.setString(Strings.NBT_CONTENT, content.getId());
+            list.add(stack);
+        }
+    }
+
+    @Override
+    public void onCreated(ItemStack itemStack, World world, EntityPlayer player) {
+        super.onCreated(itemStack, world, player);
+    }
+
+    @Override
     public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
         if (!world.isRemote) {
-            MovingObjectPosition position = this.getMovingObjectPositionFromPlayer(world, player, true);
+            MovingObjectPosition position = getMovingObjectPositionFromPlayer(world, player, true);
 
-            if (position == null)
+            if (position == null) {
                 return itemStack;
+            }
 
             int blockId = world.getBlockId(position.blockX, position.blockY, position.blockZ);
             ItemStack newItemStack = null;
 
-            if (itemStack.stackTagCompound != null)
+            if (itemStack.stackTagCompound != null) {
                 return itemStack;
+            }
 
             switch (blockId) {
                 case 8: /* Water */
@@ -102,21 +117,7 @@ public class ItemVial extends FundamentalsItem {
     @Override
     public void registerIcons(IconRegister register) {
         super.registerIcons(register);
-        this.itemIcon = super.itemIcon;
+        itemIcon = super.itemIcon;
         contentIcon = register.registerIcon(ItemInfo.VILE_CONTENT_TEX);
-    }
-
-    @Override
-    public void getSubItems(int id, CreativeTabs creativeTab, List list) {
-        list.add(new ItemStack(ModItems.vial)); // Empty vial
-        
-        for (IContent content : ContentHelper.getAllContents()) {
-            ItemStack stack = new ItemStack(ModItems.vial);
-
-            stack.stackTagCompound = new NBTTagCompound();
-
-            stack.stackTagCompound.setString(Strings.NBT_CONTENT, content.getId());
-            list.add(stack);
-        }
     }
 }

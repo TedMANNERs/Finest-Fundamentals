@@ -10,12 +10,17 @@ import com.binarytenshi.fundamentals.lib.Textures;
 
 import cpw.mods.fml.client.FMLClientHandler;
 
-public class ItemDistilleryRenderer implements IItemRenderer {
+/**
+ * Renderer for the chemical table item
+ * 
+ * @author BinaryTENSHi
+ */
+public class ItemChemicalTableRenderer implements IItemRenderer {
 
     private final ModelChemicalTable modelDistillery;
 
-    public ItemDistilleryRenderer() {
-        this.modelDistillery = new ModelChemicalTable();
+    public ItemChemicalTableRenderer() {
+        modelDistillery = new ModelChemicalTable();
     }
 
     @Override
@@ -37,7 +42,7 @@ public class ItemDistilleryRenderer implements IItemRenderer {
         FMLClientHandler.instance().getClient().renderEngine.bindTexture(Textures.CHEMICALTABLE_MODEL);
 
         // Render
-        this.modelDistillery.render();
+        modelDistillery.render();
 
         GL11.glEnable(GL11.GL_LIGHTING);
         GL11.glPopMatrix();

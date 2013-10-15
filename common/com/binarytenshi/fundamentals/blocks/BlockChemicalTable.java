@@ -13,6 +13,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import com.binarytenshi.fundamentals.Fundamentals;
+import com.binarytenshi.fundamentals.core.Molecule;
 import com.binarytenshi.fundamentals.lib.BlockInfo;
 import com.binarytenshi.fundamentals.lib.RenderIds;
 import com.binarytenshi.fundamentals.lib.Strings;
@@ -21,7 +22,8 @@ import com.binarytenshi.fundamentals.tileentity.TileEntityChemicalTable;
 import cpw.mods.fml.common.network.FMLNetworkHandler;
 
 /**
- * Decompose molecules into elements by heating them up.
+ * Basic chemical table which can hold a selection of tools to decompose
+ * {@link Molecule}s
  * 
  * @author BinaryTENSHi
  */

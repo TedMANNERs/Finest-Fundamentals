@@ -2,6 +2,11 @@ package com.binarytenshi.fundamentals.lib;
 
 import net.minecraft.util.ResourceLocation;
 
+/**
+ * Contains paths to all textures
+ * 
+ * @author BinaryTENSHi
+ */
 public class Textures {
     // Base file paths
     public static final String MODEL_SHEET_LOCATION = "textures/models/";

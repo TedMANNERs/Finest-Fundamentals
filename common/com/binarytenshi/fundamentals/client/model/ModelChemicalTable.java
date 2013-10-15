@@ -6,19 +6,24 @@ import net.minecraftforge.client.model.IModelCustom;
 
 import com.binarytenshi.fundamentals.lib.Models;
 
+/**
+ * Chemical table model
+ * 
+ * @author BinaryTENSHi
+ */
 public class ModelChemicalTable extends ModelBase {
 
     private final IModelCustom modelChemicalTable;
 
     public ModelChemicalTable() {
-        this.modelChemicalTable = AdvancedModelLoader.loadModel(Models.CHEMICALTABLE);
+        modelChemicalTable = AdvancedModelLoader.loadModel(Models.CHEMICALTABLE);
     }
 
     public void render() {
-        this.modelChemicalTable.renderAll();
+        modelChemicalTable.renderAll();
     }
 
     public void renderPart(String partName) {
-        this.modelChemicalTable.renderPart(partName);
+        modelChemicalTable.renderPart(partName);
     }
 }

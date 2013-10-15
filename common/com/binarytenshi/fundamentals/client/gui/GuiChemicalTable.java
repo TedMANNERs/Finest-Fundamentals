@@ -9,6 +9,11 @@ import com.binarytenshi.fundamentals.tileentity.TileEntityChemicalTable;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+/**
+ * Chemical table user interface
+ * 
+ * @author BinaryTENSHi
+ */
 @SideOnly(Side.CLIENT)
 public class GuiChemicalTable extends GuiContainer {
 
@@ -17,14 +22,14 @@ public class GuiChemicalTable extends GuiContainer {
     public GuiChemicalTable(InventoryPlayer inventory, TileEntityChemicalTable chemicalTable) {
         super(new ContainerChemicalTable(inventory, chemicalTable));
 
-        this.xSize = 176;
-        this.ySize = 154;
+        xSize = 176;
+        ySize = 154;
 
         this.chemicalTable = chemicalTable;
     }
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
-        this.fontRenderer.drawString("Hello World", 176, 154, 0xFFFF00);
+        fontRenderer.drawString("Hello World", 176, 154, 0xFFFF00);
     }
 }

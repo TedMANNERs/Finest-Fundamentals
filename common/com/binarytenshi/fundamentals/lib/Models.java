@@ -1,5 +1,10 @@
 package com.binarytenshi.fundamentals.lib;
 
+/**
+ * Contains paths to all models
+ * 
+ * @author BinaryTENSHi
+ */
 public class Models {
 
     // Base file paths

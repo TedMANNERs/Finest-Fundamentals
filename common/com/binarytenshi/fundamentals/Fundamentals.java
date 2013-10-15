@@ -5,12 +5,12 @@ import java.util.logging.Logger;
 import net.minecraft.creativetab.CreativeTabs;
 import codechicken.nei.forge.GuiContainerManager;
 
-import com.binarytenshi.fundamentals.blocks.ModBlocks;
 import com.binarytenshi.fundamentals.config.ConfigHandler;
 import com.binarytenshi.fundamentals.core.Element;
 import com.binarytenshi.fundamentals.core.Molecule;
-import com.binarytenshi.fundamentals.core.handler.ContentTooltipHandler;
+import com.binarytenshi.fundamentals.core.handler.FormulaTooltipHandler;
 import com.binarytenshi.fundamentals.core.helper.ContentHelper;
+import com.binarytenshi.fundamentals.core.helper.FormulaHelper;
 import com.binarytenshi.fundamentals.core.proxy.CommonProxy;
 import com.binarytenshi.fundamentals.item.ModItems;
 import com.binarytenshi.fundamentals.lib.Reference;
@@ -76,7 +76,10 @@ public class Fundamentals {
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-        GuiContainerManager.tooltipHandlers.add(new ContentTooltipHandler());
+        GuiContainerManager.tooltipHandlers.add(new FormulaTooltipHandler());
+
+        FormulaHelper.registerIC2Items();
+        FormulaHelper.generateFormulas();
     }
 
     @EventHandler
@@ -84,7 +87,8 @@ public class Fundamentals {
         ConfigHandler.init(event.getSuggestedConfigurationFile());
 
         ModItems.init();
-        ModBlocks.init();
+        //TODO: uncomment ModBlocks
+        //ModBlocks.init();
 
         proxy.registerTileEntities();
         proxy.initSounds();

@@ -7,10 +7,15 @@ import net.minecraft.nbt.NBTTagCompound;
 
 import com.binarytenshi.fundamentals.lib.Strings;
 
+/**
+ * Chemical table tile entity
+ * 
+ * @author BinaryTENSHi
+ */
 public class TileEntityChemicalTable extends FundamentalsTileEntity implements IInventory {
 
     public TileEntityChemicalTable() {
-        this.inventory = new ItemStack[getSizeInventory()];
+        inventory = new ItemStack[getSizeInventory()];
     }
 
     @Override
@@ -19,7 +24,7 @@ public class TileEntityChemicalTable extends FundamentalsTileEntity implements I
 
     @Override
     public ItemStack decrStackSize(int slot, int count) {
-        ItemStack itemstack = this.inventory[slot];
+        ItemStack itemstack = inventory[slot];
         if (itemstack != null) {
             if (itemstack.stackSize <= count) {
                 setInventorySlotContents(slot, null);
@@ -49,7 +54,7 @@ public class TileEntityChemicalTable extends FundamentalsTileEntity implements I
 
     @Override
     public ItemStack getStackInSlot(int slot) {
-        return this.inventory[slot];
+        return inventory[slot];
     }
 
     @Override
@@ -85,7 +90,7 @@ public class TileEntityChemicalTable extends FundamentalsTileEntity implements I
 
     @Override
     public void setInventorySlotContents(int slot, ItemStack itemstack) {
-        this.inventory[slot] = itemstack;
+        inventory[slot] = itemstack;
 
         if (itemstack != null && itemstack.stackSize > getInventoryStackLimit()) {
             itemstack.stackSize = getInventoryStackLimit();
