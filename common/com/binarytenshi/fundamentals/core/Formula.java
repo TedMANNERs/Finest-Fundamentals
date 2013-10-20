@@ -13,6 +13,9 @@ import java.util.Map;
 public class Formula {
     private final LinkedHashMap<Element, Integer> elements = new LinkedHashMap<Element, Integer>();
 
+    public Formula() {
+    }
+
     public Formula(Element... elements) {
         for (Element element : elements) {
             this.elements.put(element, 1);
@@ -22,6 +25,19 @@ public class Formula {
     public Formula(SimpleEntry<Element, Integer>... elements) {
         for (SimpleEntry<Element, Integer> entry : elements) {
             this.elements.put(entry.getKey(), entry.getValue());
+        }
+    }
+
+    public void combine(Formula form, int stackSize) {
+        for (Map.Entry<Element, Integer> element : form.elements.entrySet()) {
+            int count = element.getValue();
+
+            if (elements.containsKey(element.getKey())) {
+                count += elements.get(element.getKey());
+                elements.remove(element.getKey());
+            }
+
+            elements.put(element.getKey(), Math.round((count / (float) stackSize) - .5f));
         }
     }
 
@@ -55,9 +71,8 @@ public class Formula {
         StringBuilder builder = new StringBuilder();
         Iterator it = elements.entrySet().iterator();
 
-        while (it.hasNext()) {
-            Map.Entry<Element, Integer> pair = (Map.Entry<Element, Integer>) it.next();
-            builder.append(pair.getKey().toString() + convertNumber(pair.getValue()));
+        for (Map.Entry<Element, Integer> element : elements.entrySet()) {
+            builder.append(element.getKey().toString() + convertNumber(element.getValue()));
         }
 
         return builder.toString();
