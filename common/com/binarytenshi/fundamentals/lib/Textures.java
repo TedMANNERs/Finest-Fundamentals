@@ -14,6 +14,6 @@ public class Textures {
     public static final String GUI_SHEET_LOCATION = "textures/gui/";
     public static final String EFFECTS_LOCATION = "textures/effects/";
 
-    public static final ResourceLocation CHEMICALTABLE_MODEL = new ResourceLocation(Reference.MOD_ID, MODEL_SHEET_LOCATION + BlockInfo.CHEMICALTABLE_UNLOCALIZED_NAME + ".png");
+    public static final ResourceLocation DISTILLERY_MODEL = new ResourceLocation(Reference.MOD_ID, MODEL_SHEET_LOCATION + BlockInfo.DISTILLERY_UNLOCALIZED_NAME + ".png");
 
 }

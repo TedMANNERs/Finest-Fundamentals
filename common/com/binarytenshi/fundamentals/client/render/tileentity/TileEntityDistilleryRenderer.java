@@ -5,25 +5,25 @@ import net.minecraft.tileentity.TileEntity;
 
 import org.lwjgl.opengl.GL11;
 
-import com.binarytenshi.fundamentals.client.model.ModelChemicalTable;
+import com.binarytenshi.fundamentals.client.model.ModelDistillery;
 import com.binarytenshi.fundamentals.lib.Textures;
-import com.binarytenshi.fundamentals.tileentity.TileEntityChemicalTable;
+import com.binarytenshi.fundamentals.tileentity.TileEntityDistillery;
 
 import cpw.mods.fml.client.FMLClientHandler;
 
 /**
- * Renderer for the chemical table tile entity
+ * Renderer for the distillery tile entity
  * 
  * @author BinaryTENSHi
  */
-public class TileEntityChemicalTableRenderer extends TileEntitySpecialRenderer {
+public class TileEntityDistilleryRenderer extends TileEntitySpecialRenderer {
 
-    private final ModelChemicalTable modelDistillery = new ModelChemicalTable();
+    private final ModelDistillery modelDistillery = new ModelDistillery();
 
     @Override
     public void renderTileEntityAt(TileEntity entity, double x, double y, double z, float tick) {
-        if (entity instanceof TileEntityChemicalTable) {
-            TileEntityChemicalTable tileAlchemyTable = (TileEntityChemicalTable) entity;
+        if (entity instanceof TileEntityDistillery) {
+            TileEntityDistillery distillery = (TileEntityDistillery) entity;
 
             GL11.glPushMatrix();
             GL11.glDisable(GL11.GL_LIGHTING);
@@ -33,7 +33,7 @@ public class TileEntityChemicalTableRenderer extends TileEntitySpecialRenderer {
             GL11.glTranslatef((float) x + 0.0F, (float) y + 0.0F, (float) z + 1.0F);
 
             // Bind texture
-            FMLClientHandler.instance().getClient().renderEngine.bindTexture(Textures.CHEMICALTABLE_MODEL);
+            FMLClientHandler.instance().getClient().renderEngine.bindTexture(Textures.DISTILLERY_MODEL);
 
             // Render
             modelDistillery.render();

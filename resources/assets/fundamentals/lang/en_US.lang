@@ -8,7 +8,7 @@ itemGroup.fundamentals=Finest Fundamentals
 item.fundamentals:vial.name=Vial
 
 #Blocks
-tile.fundamentals:chemicalTable.name=Chemical Table
+tile.fundamentals:distillery.name=Distillery
 
 #Tooltips
 tooltip.fundamentals:contains=Contains

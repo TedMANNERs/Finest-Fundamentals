@@ -6,6 +6,6 @@ package com.binarytenshi.fundamentals.lib;
  * @author BinaryTENSHi
  */
 public class GuiIds {
-    public static final int CHEMICALTABLE = 0;
+    public static final int DISTILLERY = 0;
 
 }

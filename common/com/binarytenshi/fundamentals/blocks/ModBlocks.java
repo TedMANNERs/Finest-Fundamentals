@@ -14,11 +14,11 @@ import cpw.mods.fml.common.registry.GameRegistry;
  */
 public class ModBlocks {
 
-    public static Block chemicalTable;
+    public static Block distillery;
 
     public static void init() {
-        chemicalTable = new BlockChemicalTable(BlockInfo.CHEMICALTABLE_ID, Material.iron);
+        distillery = new BlockDistillery(BlockInfo.DISTILLERY_ID, Material.iron);
 
-        GameRegistry.registerBlock(chemicalTable, BlockInfo.CHEMICALTABLE_UNLOCALIZED_NAME);
+        GameRegistry.registerBlock(distillery, BlockInfo.DISTILLERY_UNLOCALIZED_NAME);
     }
 }

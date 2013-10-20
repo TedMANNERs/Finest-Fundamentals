@@ -15,13 +15,13 @@ import cpw.mods.fml.client.registry.RenderingRegistry;
  */
 public class ClientProxy extends CommonProxy {
 
-    //TODO: uncomment chemical table
+    //TODO: uncomment distillery
     @Override
     public void initRenderers() {
         MinecraftForgeClient.registerItemRenderer(ModItems.vial.itemID, new VialRenderer());
-        //MinecraftForgeClient.registerItemRenderer(BlockInfo.CHEMICALTABLE_ID, new ItemDistilleryRenderer());
+        //MinecraftForgeClient.registerItemRenderer(BlockInfo.DISTILLERY_ID, new ItemDistilleryRenderer());
 
-        RenderIds.chemicalTable = RenderingRegistry.getNextAvailableRenderId();
+        RenderIds.distillery = RenderingRegistry.getNextAvailableRenderId();
     }
 
     @Override
@@ -33,6 +33,6 @@ public class ClientProxy extends CommonProxy {
     public void registerTileEntities() {
         super.registerTileEntities();
 
-        //ClientRegistry.bindTileEntitySpecialRenderer(TileEntityChemicalTable.class, new TileEntityDistilleryRenderer());
+        //ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDistillery.class, new TileEntityDistilleryRenderer());
     }
 }

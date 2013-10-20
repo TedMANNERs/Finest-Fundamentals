@@ -6,6 +6,6 @@ package com.binarytenshi.fundamentals.lib;
  * @author BinaryTENSHi
  */
 public class RenderIds {
-    public static int chemicalTable;
+    public static int distillery;
 
 }

@@ -8,13 +8,13 @@ import net.minecraft.nbt.NBTTagCompound;
 import com.binarytenshi.fundamentals.lib.Strings;
 
 /**
- * Chemical table tile entity
+ * Distillery tile entity
  * 
  * @author BinaryTENSHi
  */
-public class TileEntityChemicalTable extends FundamentalsTileEntity implements IInventory {
+public class TileEntityDistillery extends FundamentalsTileEntity implements IInventory {
 
-    public TileEntityChemicalTable() {
+    public TileEntityDistillery() {
         inventory = new ItemStack[getSizeInventory()];
     }
 

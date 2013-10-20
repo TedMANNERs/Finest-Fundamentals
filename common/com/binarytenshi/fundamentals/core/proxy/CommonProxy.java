@@ -3,12 +3,12 @@ package com.binarytenshi.fundamentals.core.proxy;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
-import com.binarytenshi.fundamentals.client.gui.GuiChemicalTable;
-import com.binarytenshi.fundamentals.inventory.ContainerChemicalTable;
+import com.binarytenshi.fundamentals.client.gui.GuiDistillery;
+import com.binarytenshi.fundamentals.inventory.ContainerDistillery;
 import com.binarytenshi.fundamentals.lib.BlockInfo;
 import com.binarytenshi.fundamentals.lib.GuiIds;
 import com.binarytenshi.fundamentals.lib.Strings;
-import com.binarytenshi.fundamentals.tileentity.TileEntityChemicalTable;
+import com.binarytenshi.fundamentals.tileentity.TileEntityDistillery;
 
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -23,8 +23,8 @@ public class CommonProxy implements IGuiHandler {
     @Override
     public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
         switch (id) {
-            case GuiIds.CHEMICALTABLE:
-                return new GuiChemicalTable(player.inventory, (TileEntityChemicalTable) world.getBlockTileEntity(x, y, z));
+            case GuiIds.DISTILLERY:
+                return new GuiDistillery(player.inventory, (TileEntityDistillery) world.getBlockTileEntity(x, y, z));
         }
 
         return null;
@@ -33,8 +33,8 @@ public class CommonProxy implements IGuiHandler {
     @Override
     public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
         switch (id) {
-            case GuiIds.CHEMICALTABLE:
-                return new ContainerChemicalTable(player.inventory, (TileEntityChemicalTable) world.getBlockTileEntity(x, y, z));
+            case GuiIds.DISTILLERY:
+                return new ContainerDistillery(player.inventory, (TileEntityDistillery) world.getBlockTileEntity(x, y, z));
         }
 
         return null;
@@ -49,6 +49,6 @@ public class CommonProxy implements IGuiHandler {
     }
 
     public void registerTileEntities() {
-        GameRegistry.registerTileEntity(TileEntityChemicalTable.class, Strings.TILEENTITY_PREFIX + BlockInfo.CHEMICALTABLE_UNLOCALIZED_NAME);
+        GameRegistry.registerTileEntity(TileEntityDistillery.class, Strings.TILEENTITY_PREFIX + BlockInfo.DISTILLERY_UNLOCALIZED_NAME);
     }
 }

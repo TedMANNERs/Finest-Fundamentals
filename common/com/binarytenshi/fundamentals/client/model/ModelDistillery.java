@@ -7,23 +7,23 @@ import net.minecraftforge.client.model.IModelCustom;
 import com.binarytenshi.fundamentals.lib.Models;
 
 /**
- * Chemical table model
+ * Distillery model
  * 
  * @author BinaryTENSHi
  */
-public class ModelChemicalTable extends ModelBase {
+public class ModelDistillery extends ModelBase {
 
-    private final IModelCustom modelChemicalTable;
+    private final IModelCustom modelDistillery;
 
-    public ModelChemicalTable() {
-        modelChemicalTable = AdvancedModelLoader.loadModel(Models.CHEMICALTABLE);
+    public ModelDistillery() {
+        modelDistillery = AdvancedModelLoader.loadModel(Models.DISTILLERY);
     }
 
     public void render() {
-        modelChemicalTable.renderAll();
+        modelDistillery.renderAll();
     }
 
     public void renderPart(String partName) {
-        modelChemicalTable.renderPart(partName);
+        modelDistillery.renderPart(partName);
     }
 }
