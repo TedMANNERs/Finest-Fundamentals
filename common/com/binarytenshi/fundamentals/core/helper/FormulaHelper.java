@@ -1,5 +1,6 @@
 package com.binarytenshi.fundamentals.core.helper;
 
+import java.lang.reflect.Field;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -7,13 +8,12 @@ import java.util.Map.Entry;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.item.crafting.ShapedRecipes;
-import net.minecraft.item.crafting.ShapelessRecipes;
 
 import com.binarytenshi.fundamentals.Fundamentals;
 import com.binarytenshi.fundamentals.core.Element;
 import com.binarytenshi.fundamentals.core.Formula;
 import com.binarytenshi.fundamentals.item.FundamentalsItem;
+import com.binarytenshi.fundamentals.lib.Reference;
 
 /**
  * Handles all chemical {@link Formula} for non {@link FundamentalsItem}.
@@ -25,46 +25,66 @@ public class FormulaHelper {
     private static HashMap<String, Formula> formulaMap = new HashMap<String, Formula>();
 
     public static void generateFormulas() {
-
-        //TODO: get IC2 recipes
-
-        for (Object obj : CraftingManager.getInstance().getRecipeList()) {
-
+        for (Object recipe : CraftingManager.getInstance().getRecipeList()) {
+            int i = 0;
             Formula formula = new Formula();
+            String resultName = null;
 
-            if (obj instanceof ShapedRecipes) {
-                ShapedRecipes recipe = (ShapedRecipes) obj;
+            if (Reference.DEBUG_MODE) {
+                Fundamentals.logger.info(recipe.toString() + ":");
 
-                for (ItemStack stack : recipe.recipeItems) {
-                    if (stack != null) {
-                        String name = stack.getItem().getUnlocalizedName();
-                        Fundamentals.logger.info(name);
-                        Formula form = FormulaHelper.getFormula(name);
+                for (Field f : recipe.getClass().getDeclaredFields()) {
+                    try {
+                        f.setAccessible(true);
+                        Fundamentals.logger.info("FIELD: " + f.getName() + ", VALUE: " + f.get(recipe).toString());
 
-                        if (form != null) {
-                            formula.combine(form, recipe.getRecipeOutput().stackSize);
+                        if (f.get(recipe) instanceof Object[]) {
+                            for (Object o : (Object[]) f.get(recipe)) {
+                                Fundamentals.logger.info(" > INGR: " + o.toString());
+                            }
+                        }
+
+                    } catch (Exception e) {
+                    }
+                }
+
+                Fundamentals.logger.info("---------------------------------");
+            }
+
+            do {
+                try {
+                    Field field = recipe.getClass().getDeclaredFields()[i++];
+                    field.setAccessible(true);
+
+                    Object fieldValue = field.get(recipe);
+
+                    if (fieldValue instanceof Object[]) {
+                        Object[] ingredients = (Object[]) fieldValue;
+
+                        for (Object ingredient : ingredients) {
+                            String name = ((ItemStack) ingredient).getItem().getUnlocalizedNameInefficiently(((ItemStack) ingredient));
+
+                            Formula ingredientFormula = FormulaHelper.getFormula(name);
+                            if (ingredientFormula != null) {
+                                formula.combine(ingredientFormula, 1);
+                            }
                         }
                     }
-                }
 
-                if (formula.getElements().size() != 0) {
-                    FormulaHelper.registerFormula(recipe.getRecipeOutput().getUnlocalizedName(), formula);
-                }
-
-                Fundamentals.logger.info("-------------------------------");
-            } else if (obj instanceof ShapelessRecipes) {
-                ShapelessRecipes recipe = (ShapelessRecipes) obj;
-
-                for (Object obj2 : recipe.recipeItems.toArray()) {
-                    ItemStack stack = (ItemStack) obj2;
-
-                    if (stack != null) {
-                        Fundamentals.logger.info(stack.getItem().getUnlocalizedName());
+                    if (fieldValue instanceof ItemStack) {
+                        ItemStack result = (ItemStack) fieldValue;
+                        resultName = result.getItem().getUnlocalizedNameInefficiently(result);
                     }
-                }
 
-                Fundamentals.logger.info("-------------------------------");
-            }
+                } catch (ArrayIndexOutOfBoundsException ex) {
+                    if (!formula.getElements().isEmpty() && resultName != null) {
+                        FormulaHelper.registerFormula(resultName, formula);
+                    }
+
+                    break;
+                } catch (Exception ex) {
+                }
+            } while (true);
         }
     }
 
@@ -96,13 +116,11 @@ public class FormulaHelper {
      */
     public static void registerFormula(String name, Formula formula) {
         if (formulaMap.keySet().contains(name)) {
-            Fundamentals.logger.warning("Attempted to register a formula to same unlocalized name twice.");
-            Fundamentals.logger.warning("> " + name + ";" + formula.getFormula());
+            Fundamentals.logger.warning("Attempted to register a formula to same unlocalized name twice: " + name + ";" + formula.getFormula());
             return;
         }
 
-        Fundamentals.logger.info("Registering: ");
-        Fundamentals.logger.info("> " + name + ";" + formula.getFormula());
+        Fundamentals.logger.info("Registering: " + name + ";" + formula.getFormula());
 
         formulaMap.put(name, formula);
     }
@@ -111,5 +129,6 @@ public class FormulaHelper {
         registerFormula(Item.ingotIron.getUnlocalizedName(), new Formula(new SimpleEntry<Element, Integer>(Element.FE, 9)));
 
         registerFormula(ic2.api.item.Items.getItem("smallIronDust").getUnlocalizedName(), new Formula(Element.FE));
+        registerFormula(ic2.api.item.Items.getItem("plateiron").getUnlocalizedName(), new Formula(new SimpleEntry<Element, Integer>(Element.FE, 9)));
     }
 }
