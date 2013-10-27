@@ -33,7 +33,7 @@ public class ConfigHandler {
 
         /* Load Blocks */
         id = BlockInfo.BASE_ID;
-        BlockInfo.CHEMICALTABLE_ID = getBlockId(config, BlockInfo.CHEMICALTABLE_UNLOCALIZED_NAME, id++);
+        BlockInfo.DISTILLERY_ID = getBlockId(config, BlockInfo.DISTILLERY_UNLOCALIZED_NAME, id++);
 
         config.save();
     }

@@ -47,13 +47,13 @@ public enum Element implements IContent {
      */
     Element(String name, int protons, int neutrons, int meltingPoint, int boilingPoint, Color color) {
         this.name = name;
-        this.id = name.toLowerCase();
+        id = name.toLowerCase();
         this.color = color;
     }
 
     @Override
     public Color getColor() {
-        return this.color;
+        return color;
     }
 
     @Override
@@ -63,12 +63,12 @@ public enum Element implements IContent {
 
     @Override
     public String getId() {
-        return this.id;
+        return id;
     }
 
     @Override
     public String getName() {
-        return this.name;
+        return name;
     }
 
     @Override

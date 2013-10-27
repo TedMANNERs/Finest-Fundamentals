@@ -5,17 +5,22 @@ import net.minecraftforge.client.IItemRenderer;
 
 import org.lwjgl.opengl.GL11;
 
-import com.binarytenshi.fundamentals.client.model.ModelChemicalTable;
+import com.binarytenshi.fundamentals.client.model.ModelDistillery;
 import com.binarytenshi.fundamentals.lib.Textures;
 
 import cpw.mods.fml.client.FMLClientHandler;
 
+/**
+ * Renderer for the distillery item
+ * 
+ * @author BinaryTENSHi
+ */
 public class ItemDistilleryRenderer implements IItemRenderer {
 
-    private final ModelChemicalTable modelDistillery;
+    private final ModelDistillery modelDistillery;
 
     public ItemDistilleryRenderer() {
-        this.modelDistillery = new ModelChemicalTable();
+        modelDistillery = new ModelDistillery();
     }
 
     @Override
@@ -34,10 +39,10 @@ public class ItemDistilleryRenderer implements IItemRenderer {
         GL11.glRotatef(0, 0, 0, 0);
 
         // Bind texture
-        FMLClientHandler.instance().getClient().renderEngine.bindTexture(Textures.CHEMICALTABLE_MODEL);
+        FMLClientHandler.instance().getClient().renderEngine.bindTexture(Textures.DISTILLERY_MODEL);
 
         // Render
-        this.modelDistillery.render();
+        modelDistillery.render();
 
         GL11.glEnable(GL11.GL_LIGHTING);
         GL11.glPopMatrix();

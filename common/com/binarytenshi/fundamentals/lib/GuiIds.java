@@ -1,6 +1,11 @@
 package com.binarytenshi.fundamentals.lib;
 
+/**
+ * Contains custom gui ids
+ * 
+ * @author BinaryTENSHi
+ */
 public class GuiIds {
-    public static final int CHEMICALTABLE = 0;
+    public static final int DISTILLERY = 0;
 
 }

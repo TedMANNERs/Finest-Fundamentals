@@ -13,28 +13,30 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import com.binarytenshi.fundamentals.Fundamentals;
+import com.binarytenshi.fundamentals.core.Molecule;
 import com.binarytenshi.fundamentals.lib.BlockInfo;
 import com.binarytenshi.fundamentals.lib.RenderIds;
 import com.binarytenshi.fundamentals.lib.Strings;
-import com.binarytenshi.fundamentals.tileentity.TileEntityChemicalTable;
+import com.binarytenshi.fundamentals.tileentity.TileEntityDistillery;
 
 import cpw.mods.fml.common.network.FMLNetworkHandler;
 
 /**
- * Decompose molecules into elements by heating them up.
+ * Basic tool which splits {@link Molecule}s into {@link Element}s with
+ * temperature
  * 
  * @author BinaryTENSHi
  */
-public class BlockChemicalTable extends FundamentalsBlock implements ITileEntityProvider {
+public class BlockDistillery extends FundamentalsBlock implements ITileEntityProvider {
 
-    public BlockChemicalTable(int id, Material material) {
-        super(id, Material.iron);
-        setUnlocalizedName(Strings.RESOURCE_PREFIX + BlockInfo.CHEMICALTABLE_UNLOCALIZED_NAME);
+    public BlockDistillery(int id, Material material) {
+        super(id, material);
+        setUnlocalizedName(Strings.RESOURCE_PREFIX + BlockInfo.DISTILLERY_UNLOCALIZED_NAME);
     }
 
     @Override
     public void addStacksDroppedOnBlockBreak(TileEntity tileEntity, ArrayList<ItemStack> stackList) {
-        TileEntityChemicalTable distillery = (TileEntityChemicalTable) tileEntity;
+        TileEntityDistillery distillery = (TileEntityDistillery) tileEntity;
 
         for (int slot = 0; slot < distillery.getSizeInventory(); slot++) {
             ItemStack itemStack = distillery.getStackInSlot(slot);
@@ -47,12 +49,12 @@ public class BlockChemicalTable extends FundamentalsBlock implements ITileEntity
 
     @Override
     public TileEntity createNewTileEntity(World world) {
-        return new TileEntityChemicalTable();
+        return new TileEntityDistillery();
     }
 
     @Override
     public int getRenderType() {
-        return RenderIds.chemicalTable;
+        return RenderIds.distillery;
     }
 
     @Override
@@ -61,7 +63,7 @@ public class BlockChemicalTable extends FundamentalsBlock implements ITileEntity
 
         unlocalizedName.append("tile.");
         unlocalizedName.append(Strings.RESOURCE_PREFIX);
-        unlocalizedName.append(BlockInfo.CHEMICALTABLE_UNLOCALIZED_NAME);
+        unlocalizedName.append(BlockInfo.DISTILLERY_UNLOCALIZED_NAME);
 
         return unlocalizedName.toString();
     }
