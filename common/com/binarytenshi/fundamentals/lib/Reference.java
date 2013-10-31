@@ -12,8 +12,8 @@ public class Reference {
     /* General */
     public static final String MOD_ID = "fundamentals";
     public static final String MOD_NAME = "Finest Fundamentals";
-    public static final String VERSION = "@VERSION@ (build @BUILD_NUMBER@)";
-    public static final String FINGERPRINT = "@FINGERPRINT@";
+    public static final String VERSION = "@mod_version@ (build @build_number@)";
+    public static final String FINGERPRINT = "@fingerprint_signature@";
     public static final String CHANNEL_NAME = MOD_ID;
     public static final int ITEM_ID_SHIFT = 256;
 
