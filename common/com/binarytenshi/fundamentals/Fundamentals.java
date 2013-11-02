@@ -67,11 +67,7 @@ public class Fundamentals {
 
     @EventHandler
     public void invalidFingerprint(FMLFingerprintViolationEvent event) {
-        if (Reference.FINGERPRINT.equals("@FINGERPRINT@")) {
-            logger.warning(Strings.NO_FINGERPRINT_MESSAGE);
-        } else {
-            logger.severe(Strings.INVALID_FINGERPRINT_MESSAGE);
-        }
+        logger.severe(Strings.INVALID_FINGERPRINT_MESSAGE);
     }
 
     @EventHandler

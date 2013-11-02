@@ -1,0 +1,155 @@
+defaultTasks 'build'
+
+println "Finest-Fundamentals by BinaryTENSHi"
+println ""
+println "Minecraft:    " + minecraft_version
+println "Forge:        " + forge_version
+println "Mod version:  " + mod_version
+println ""
+
+String projDir = "$projectDir"
+String baseDir = "$projectDir".split("eclipse")[0]
+String forgeDir = baseDir+ "forge"
+String mcpDir = forgeDir + "/mcp"
+String releaseFile = ""
+
+String forgeZip = "minecraftforge-src-" + minecraft_version + "-" + forge_version + ".zip"
+String forgeUrl = "http://files.minecraftforge.net/minecraftforge/" + forgeZip
+
+task incrementBuild() << {
+    project.build_number = project.build_number.toInteger() + 1;
+    println "Incrementing build number to: " + build_number
+
+    ant.propertyfile(file: "gradle.properties") {
+        entry(key: "build_number", type: "int", operation: "+", default: "1")
+    }
+}
+
+task clean() << {
+    println "Cleaning..."
+
+    delete {
+        delete mcpDir + "/src/minecraft/mcmod.info"
+        delete mcpDir + "/src/minecraft/pack.mcmeta"
+        delete mcpDir + "/src/minecraft/com/binarytenshi"
+        delete mcpDir + "/reobf/minecraft"
+    }
+}
+
+task prepare(dependsOn: clean) << {
+    println "Copying source..."
+
+    copy {
+        from projDir + "/common"
+        into mcpDir + "/src/minecraft"
+
+        def props = new Properties()
+        file("gradle.properties").withInputStream{
+            props.load(it);
+        }
+        file("private.properties").withInputStream{
+            props.load(it);
+        }
+
+        filter(org.apache.tools.ant.filters.ReplaceTokens, tokens: props)
+    }
+
+    copy {
+        from projDir + "/libraries"
+        into mcpDir + "/lib"
+    }
+}
+
+task recompile(dependsOn: prepare) << {
+    println "Calling recompile.bat..."
+    println ""
+    exec {
+        commandLine "cmd", "/c", "cd " + mcpDir + "&&" + "recompile.bat"
+    }
+    println ""
+}
+
+task reobfuscate(dependsOn: recompile) << {
+    println "Calling reobfuscate.bat..."
+    println ""
+    exec {
+        commandLine "cmd", "/c", "cd " + mcpDir + "&&" + "reobfuscate.bat"
+    }
+    println ""
+}
+
+task build(dependsOn: reobfuscate) << {
+    def props = new Properties()
+    props.load(new FileInputStream("environment.properties"))
+
+    def release = new File(props.release_location + "/" + minecraft_version)
+    releaseFile = release.path + "/" + props.filename + "-" + mod_version + "-" + build_number + ".jar";
+    release.mkdirs();
+
+    println ""
+    println "Creating jar file..."
+
+
+    ant.jar(destfile: releaseFile) {
+        fileset(dir: mcpDir + "/src/minecraft", includes: "mcmod.info")
+        fileset(dir: mcpDir + "/src/minecraft", includes: "pack.mcmeta")
+        fileset(dir: mcpDir + "/reobf/minecraft", includes: "com/**")
+        fileset(dir: projDir + "/resources", excludes: "**/xcf/**")
+    }
+
+    println "Created jar file at: " + releaseFile
+    println ""
+    println "Cleaning..."
+
+    delete {
+        delete mcpDir + "/src/minecraft/mcmod.info"
+        delete mcpDir + "/src/minecraft/pack.mcmeta"
+        delete mcpDir + "/src/minecraft/com/binarytenshi"
+        delete mcpDir + "/reobf/minecraft"
+    }
+}
+
+build.mustRunAfter incrementBuild
+
+task release(dependsOn: [incrementBuild, build]) << {
+    def props = new Properties()
+    props.load(new FileInputStream("private.properties"))
+
+    println "Signing " + releaseFile
+
+    ant.signjar(jar: releaseFile, keystore: props.keystore_location, alias: props.keystore_user_alias, storepass: props.keystore_user_password)
+}
+
+task forge_clean() << {
+    println "Removing forge directory..."
+    delete{ delete forgeDir }
+
+    println "Downloading forge... (" + forgeZip + ")"
+    def f = new File(baseDir + "/" + forgeZip)
+    if (!f.exists()) {
+        new URL(forgeUrl).withInputStream{ i ->
+            f.withOutputStream{ it << i }
+        }
+    }
+
+    println "Extracting forge..."
+    copy {
+        from zipTree(baseDir + "/" + forgeZip)
+        into baseDir
+    }
+
+    println "Deleting downloaded zip..."
+    delete { delete baseDir + "/" + forgeZip }
+}
+
+task forge_install() << {
+    println "Calling install..."
+    println ""
+    exec {
+        commandLine "cmd", "/c", "cd " + forgeDir + "&&" + "install.cmd"
+    }
+    println ""
+}
+
+task forge_clean_install(dependsOn: [forge_clean, forge_install]) << {
+}

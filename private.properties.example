@@ -1,0 +1,4 @@
+fingerprint_signature=signature
+keystore_location=keystore
+keystore_user_alias=alias
+keystore_user_password=password
